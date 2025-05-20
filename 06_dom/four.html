@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chai aur Code | DOM</title>
+  </head>
+  <body style="background-color: #211212; color: #fff">
+    <ul class="language">
+      <li>JavaScript</li>
+    </ul>
+  </body>
+  <script>
+    function addLanguage(langName) {
+      // function to add new languages in list
+      const li = document.createElement("li"); // creae a new list element
+      li.innerHTML = `${langName}`; // add it to the li whatever langname comes, till here it is just in the memory no assignments or calls
+      document.querySelector(".language").appendChild(li); // selecting the element to insert what we made, but nothing will happen, since it is not running
+      // now we will run
+    }
+    addLanguage("Python"); // this will insert the new lang to the list and screen
+    // addLanguage("TypeScript");
+    // ^^ this is basic method, but this has a problem, it has to traverse the entire tree, and if more elements more traversing, optimization issue
+
+    // better method optimizedaaaaaaa way
+    function addOptiLanguage(langName) {
+      const li = document.createElement("li");
+      li.appendChild(document.createTextNode(langName)); // same work but optimized
+      document.querySelector(".language").appendChild(li);
+    }
+    addOptiLanguage("C++");
+
+    // edit
+    const secondLang = document.querySelector("li:nth-child(2)");
+    // secondLang.innerHTML =  "Mojo" // this approach works but it traverse all dom tree
+    const newLi = document.createElement("li");
+    newLi.textContent = "Mojo"; // this is not added yet, its just in air
+    secondLang.replaceWith(newLi); // this adds it
+
+    const firstLang = document.querySelector("li:first-child");
+    firstLang.outerHTML = "<li>TypeScript</li>";
+    console.log(firstLang);
+
+    // remove 
+    const lastLang =   document.querySelector('li:last-child')
+    lastLang.remove()
+    console.log(lastLang.remove());
+    
+    
+  </script>
+</html>
