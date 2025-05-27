@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Request</title>
+    <style>
+      body {
+        background-color: #212121;
+        color: aliceblue;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      #card {
+        background-color: #2e2e2e;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        max-width: 300px;
+      }
+
+      #card img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 1rem;
+      }
+
+      #card h2 {
+        margin: 0.5rem 0;
+        font-size: 1.5rem;
+      }
+
+      #card p {
+        margin: 0.5rem 0;
+        font-size: 1rem;
+        color: #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="card">Loading...</div>
+
+    <script>
+      const requestURL = "https://api.github.com/users/NaeemSlayer";
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", requestURL);
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          const data = JSON.parse(this.responseText);
+
+          const card = `
+            <img src="${data.avatar_url}" alt="${data.name}'s avatar" />
+            <h2>${data.name || data.login}</h2>
+            <p>${data.followers} followers</p>
+          `;
+
+          document.getElementById("card").innerHTML = card;
+        }
+      };
+
+      xhr.send();
+    </script>
+  </body>
+</html>
